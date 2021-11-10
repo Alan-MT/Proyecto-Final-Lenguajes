@@ -82,7 +82,7 @@ public class TablasSimbolo {
         
         int numNoTermi = getNumCasilla(noTerminal, this.estructuras);
         int numTermi = getNumCasilla(terminal, this.terminales);
-
+        
         int numProduccion = this.tablaSimbolos[numNoTermi][numTermi];
 
         if (numProduccion >= 0) {

@@ -10,6 +10,7 @@ import com.mycompany.analizador.Archivos.ArchivoTexto;
 import com.mycompany.analizador.Lexico.Analizador;
 import com.mycompany.analizador.Lexico.Token.Errores;
 import com.mycompany.analizador.Lexico.Token.Token;
+import com.mycompany.analizador.Sintactico.Sintax;
 import com.mycompany.analizador.frontend.ReporteTokens;
 import com.mycompany.analizador.frontend.Salida;
 import java.awt.event.ActionEvent;
@@ -51,6 +52,7 @@ public class Manejadorbotones {
         this.report = new ReporteTokens();
         this.salida = new Salida();
         this.princi.getTextAreaSin().setVisible(false);
+        this.princi.getAnalizarSintactico().setVisible(false);
         
         this.princi.getAbrir().addActionListener(new ActionListener() {
             @Override
@@ -108,20 +110,31 @@ public class Manejadorbotones {
                     if (listaErrores == null || listaErrores.size() == 0) {
                         report.setVisible(true);
                         reporteTokens();
-//                        lexemas = new Lexemas(listaTokens);
-//                        listaLexemas = lexemas.getListaLexemas();
+
                             princi.getTextAreaSin().setVisible(true);
                             princi.getTextAreaSin().setText(princi.getjTextArea1().getText());
                             princi.getjTextArea1().setEditable(false);
+                            princi.getAnalizarSintactico().setVisible(true);
                     }
-//                    listaErrores.clear();
-//                    listaTokens.clear();
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Recuerda que debes subir un archivos para iniciar");
                 }
 
             }
         });
+                this.princi.getAnalizarSintactico().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                
+                Sintax sin = new Sintax();
+                String doc = "";
+                sin.analizar(princi.getTextAreaSin().getText(), listaTokens, doc);
+               
+                salida.setVisible(true);
+                salida.getjTextSalida().setText(doc);
+            }
+                });
                 
     }
 

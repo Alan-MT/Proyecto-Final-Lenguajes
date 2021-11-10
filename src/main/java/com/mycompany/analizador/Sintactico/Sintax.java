@@ -20,7 +20,7 @@ public class Sintax {
     //String[] tokens;
     final String epsilon = "#";
 
-     public void analizar (String texto, ArrayList<Token> listaTokens) {
+     public void analizar (String texto, ArrayList<Token> listaTokens, String doc) {
         
         Token finPila = new Token("$", TipoToken.FIN_PILA);
         listaTokens.add(finPila);
@@ -28,6 +28,7 @@ public class Sintax {
         Token token = getToken(listaTokens);
         //String nuevoToken = getToken(), reduccion="";
         System.out.println("EL ARRAYLIST TIENE " + listaTokens.size() + " ELEMENTOS.");
+        doc = "EL ARRAYLIST TIENE " + listaTokens.size() + " ELEMENTOS. \n";
         String nuevoToken = token.getTipoToken().toString();
         System.out.println(nuevoToken);
         String reduccion = "";
@@ -38,19 +39,20 @@ public class Sintax {
             if (nuevoToken.equals(pila.getUltimoNodo())) {
                 reduccion = pila.pop();
                 System.out.println("Reduce => " + reduccion);
+                doc += "Reduce => " + reduccion;
 
                 token = getToken(listaTokens);
                 nuevoToken = token.getTipoToken().toString();
                 System.out.println("\nNUEVO TOKEN: " + nuevoToken);
-                
+                doc += "\nNUEVO TOKEN: " + nuevoToken;
                 
             } else if (epsilon.equals(pila.getUltimoNodo())) {
                 reduccion = pila.pop();
                 System.out.println("Reduce => " + reduccion);                
-                
+                doc += "Reduce => " + reduccion;
             } else {
                 String notermin = pila.pop();
-                pushProduccion(notermin, nuevoToken);
+                pushProduccion(notermin, nuevoToken, doc);
                 
             }
 
@@ -58,10 +60,12 @@ public class Sintax {
 
         pila.printPila();
         System.out.println("\n - - - ANALISIS FINALIZADO - - -\n");
+        doc += "\n - - - ANALISIS FINALIZADO - - -\n";
     }
 
-    public void pushProduccion (String noTerminal, String terminal) {
+    public void pushProduccion (String noTerminal, String terminal, String doc) {
         String produccion = " " + noTerminal + " -> ";
+        doc += " " + noTerminal + " -> ";
         String[] nuevosNodos = tabla.getProduccion(noTerminal, terminal);
 
         for (int i = 1; i <= nuevosNodos.length; i++) {
@@ -69,6 +73,7 @@ public class Sintax {
             produccion += nuevosNodos[i - 1] + " ";
         }
         System.out.println(produccion);
+        doc += produccion;
     }
 
     static int numToken=0;

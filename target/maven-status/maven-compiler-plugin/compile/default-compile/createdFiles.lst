@@ -8,6 +8,7 @@ com\mycompany\analizador\Manejadores\Manejadorbotones$4.class
 com\mycompany\analizador\Sintactico\TablasSimbolo.class
 com\mycompany\analizador\Manejadores\Manejadorbotones$1.class
 com\mycompany\analizador\Lexico\Token\Token.class
+com\mycompany\analizador\Manejadores\Manejadorbotones$5.class
 com\mycompany\analizador\frontend\Principal$3.class
 com\mycompany\analizador\frontend\ReporteTokens.class
 com\mycompany\analizador\Lexico\Transicion.class
